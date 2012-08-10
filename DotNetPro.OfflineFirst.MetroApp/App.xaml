@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="DotNetPro.OfflineFirst.MetroApp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DotNetPro.OfflineFirst.MetroApp"
+    xmlns:localData="using:DotNetPro.OfflineFirst.MetroApp.Data"
+    xmlns:common="using:DotNetPro.OfflineFirst.MetroApp.Common">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Common/StandardStyles.xaml"/>
+                <ResourceDictionary Source="Common/CustomStyles.xaml"/>
+                <ResourceDictionary Source="Common/DataTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <x:String x:Key="AppName">DotNetPro.OfflineFirst.MetroApp</x:String>
+            <common:BooleanToVisibilityConverter x:Name="BooleanToVisiblityConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
