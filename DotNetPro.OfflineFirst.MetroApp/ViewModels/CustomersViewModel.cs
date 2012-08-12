@@ -13,11 +13,12 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
     public class CustomersViewModel : NavigatableViewModel
     {
         private readonly ICustomerStore _customerStore;
-        private readonly Observer<IEnumerable<Customer>> _customerObserver; 
+        private readonly Observer<IEnumerable<Customer>> _customerObserver;
         private bool _loaded;
 
         public CustomersViewModel(GlobalViewModel globalViewModel,
-                                  ICustomerStore customerStore, INavigationService navigationService) : base(navigationService)
+                                  ICustomerStore customerStore, INavigationService navigationService)
+            : base(navigationService)
         {
             this.GlobalViewModel = globalViewModel;
 
@@ -25,14 +26,14 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             _customerObserver = new Observer<IEnumerable<Customer>>(null, null, OnNextCustomers);
             _customerStore.Subscribe(_customerObserver);
 
-            this.Customers = new ObservableCollection<Customer>();
+            this.Customers = new ObservableCollection<CustomerViewModel>();
 
             this.ShowOrdersCommand = new DelegateCommand(ShowOrders);
         }
 
         public DelegateCommand ShowOrdersCommand { get; set; }
 
-        public ObservableCollection<Customer> Customers { get; private set; }
+        public ObservableCollection<CustomerViewModel> Customers { get; private set; }
         public GlobalViewModel GlobalViewModel { get; private set; }
 
         protected override void OnNavigatedTo(object parameter)
@@ -47,7 +48,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
         private void OnNextCustomers(IEnumerable<Customer> customers)
         {
-            Dispatch.Action(()=> CreateOrUpdateViewModels(customers));
+            Dispatch.Action(() => CreateOrUpdateViewModels(customers));
         }
 
         private async void LoadCustomersAsync()
@@ -59,18 +60,24 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         {
             foreach (var customer in customers)
             {
-                string id = customer.CustomerId;
+                string customerId = customer.CustomerId;
 
-                if (this.Customers.Any(c => c.CustomerId == id) == false)
+                var viewModel = (from vm in this.Customers where vm.CustomerId == customerId select vm).FirstOrDefault();
+                if (viewModel == null)
                 {
-                    this.Customers.Add(customer);
+                    viewModel = new CustomerViewModel() { Customer = customer };
+                    this.Customers.Add(viewModel);
                 }
-            }            
+                else
+                {
+                    viewModel.Customer = customer;
+                }
+            }
         }
 
         private void ShowOrders(object parameter)
         {
-            this.NavigationService.NavigateTo<OrdersViewModel>((Customer)parameter);
+            this.NavigationService.NavigateTo<OrdersViewModel>(((CustomerViewModel)parameter).Customer);
         }
 
     }

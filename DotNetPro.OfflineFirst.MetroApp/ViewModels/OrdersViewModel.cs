@@ -12,14 +12,15 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
     public class OrdersViewModel : NavigatableViewModel
     {
         private readonly IOrderStore _orderStore;
-        private readonly Observer<IEnumerable<Order>> _orderStoreObserver; 
+        private readonly Observer<IEnumerable<Order>> _orderStoreObserver;
         private Customer _customer;
 
-        public OrdersViewModel( GlobalViewModel globalViewModel, IOrderStore orderStore, 
-                                INavigationService navigationService) : base(navigationService)
+        public OrdersViewModel(GlobalViewModel globalViewModel, IOrderStore orderStore,
+                                INavigationService navigationService)
+            : base(navigationService)
         {
             this.GlobalViewModel = globalViewModel;
-            this.Orders = new ObservableCollection<Order>();
+            this.Orders = new ObservableCollection<OrderViewModel>();
 
             _orderStore = orderStore;
             _orderStoreObserver = new Observer<IEnumerable<Order>>(null, null, OnNextOrders);
@@ -35,16 +36,16 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             get { return _customer; }
             private set { SetProperty(ref _customer, value); }
         }
-        public ObservableCollection<Order> Orders { get; private set; }
+        public ObservableCollection<OrderViewModel> Orders { get; private set; }
         public GlobalViewModel GlobalViewModel { get; private set; }
 
         protected override void OnNavigatedTo(object parameter)
         {
-            var customer = (Customer) parameter;
+            var customer = (Customer)parameter;
 
             if (this.Customer == null || this.Customer.CustomerId != customer.CustomerId)
             {
-                this.Customer = (Customer) parameter;
+                this.Customer = (Customer)parameter;
 
                 LoadOrdersAsync(this.Customer.CustomerId);
             }
@@ -68,7 +69,8 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
             foreach (var order in orders)
             {
-                this.Orders.Add(order);
+                var viewModel = new OrderViewModel() { Order = order };
+                this.Orders.Add(viewModel);
             }
         }
 
@@ -76,7 +78,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         {
             var order = (Order)parameter;
 
-//            NavigationService.NavigateTo<OrderDetailsViewModel>(order);
+            //            NavigationService.NavigateTo<OrderDetailsViewModel>(order);
         }
     }
 }

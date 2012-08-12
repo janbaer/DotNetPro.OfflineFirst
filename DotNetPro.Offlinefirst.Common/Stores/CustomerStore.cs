@@ -27,8 +27,6 @@ namespace DotNetPro.Offlinefirst.Common.Stores
                 _customers = await this.OfflineStore.LoadAsync<List<Customer>>("customers", this.KnownTypes);
                 this.OnNext(_customers);
             }
-            
-
 
             var customers = new List<Customer>(await this.WebApiService.GetCustomersAsync());
             this.OnNext(customers);
