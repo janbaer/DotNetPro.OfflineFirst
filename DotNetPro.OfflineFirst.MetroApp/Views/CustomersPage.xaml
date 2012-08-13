@@ -35,25 +35,26 @@
 <!--            <Button x:Name="backButton" Command="{Binding GoBackCommand}" Style="{StaticResource BackButtonStyle}"/>-->
             <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="48,0,0,0">
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-                <TextBlock  Text=" - Customers" Style="{StaticResource PageHeaderTextStyle}"/>
+                <TextBlock Text="Customers" Style="{StaticResource PageSubheaderTextStyle}"/>
             </StackPanel>
         </Grid>
         
-        <ListView
-                x:Name="customersListView"
-                Visibility="Visible"
-                Margin="10,0,0,60"
-                Grid.Row="1"
-                ItemsSource="{Binding Source={StaticResource customersViewSource}}"
-                ItemTemplate="{StaticResource CustomerItemMediumListViewTemplate}"
-                ItemClick="ShowOrdersClick"
-                IsItemClickEnabled="True"
-                IncrementalLoadingThreshold="1"
-                DataFetchSize="2"
-                IncrementalLoadingTrigger="Edge" 
-                />      
+        <GridView
+            x:Name="customersGridView"
+            AutomationProperties.AutomationId="ItemsGridView"
+            AutomationProperties.Name="Items"
+            TabIndex="1"
+            Grid.Row="1"
+            Margin="0,-4,0,0"
+            Padding="20,0,116,46"
+            ItemsSource="{Binding Source={StaticResource customersViewSource}}"
+            ItemTemplate="{StaticResource CustomerItemGridViewTemplate}"
+            SelectionMode="None"
+            IsItemClickEnabled="True"
+            ItemClick="ShowOrdersClick"/>   
         
         <ContentControl Visibility="{Binding GlobalViewModel.IsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,30,27" Style="{StaticResource OfflineControlStyle}" VerticalAlignment="Bottom" Width="50"/>
+        <ContentControl Visibility="{Binding GlobalViewModel.WebServerIsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,30,27" Style="{StaticResource WebServerOfflineControlStyle}" VerticalAlignment="Bottom" Width="50"/>
     
         <VisualStateManager.VisualStateGroups>
 

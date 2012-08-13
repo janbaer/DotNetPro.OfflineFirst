@@ -12,7 +12,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private int _orderId;
         private string _customerID;
         private int _employeeID;
-        private DateTime? _orderDate;
+        private string _orderDate;
         private DateTime? _requiredDate;
         private DateTime? _shippedDate;
         private int _shipVia;
@@ -22,6 +22,8 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private string _shipCity;
         private string _shipRegion;
         private string _shipCountry;
+        private string _image;
+
         #endregion
 
         #region Properties
@@ -54,7 +56,13 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             set { SetProperty(ref _employeeID, value); }
         }
 
-        public DateTime? OrderDate
+        public string Image
+        {
+            get { return _image; }
+            set { SetProperty(ref _image, value); }
+        }
+
+        public string OrderDate
         {
             get { return _orderDate; }
             set { SetProperty(ref _orderDate, value); }
@@ -120,7 +128,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             this.OrderID = order.OrderID;
             this.CustomerID = order.CustomerID;
             this.EmployeeID = order.EmployeeID;
-            this.OrderDate = order.OrderDate;
+            this.OrderDate = order.OrderDate.HasValue ? string.Format("{0:d}", order.OrderDate.Value) : string.Empty;
             this.RequiredDate = order.RequiredDate;
             this.ShippedDate = order.ShippedDate;
             this.ShipVia = order.ShipVia;
@@ -130,6 +138,8 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             this.ShipCity = order.ShipCity;
             this.ShipRegion = order.ShipRegion;
             this.ShipCountry = order.ShipCountry;
+
+            this.Image = "../Assets/DarkGray.png";
         }
        
     }

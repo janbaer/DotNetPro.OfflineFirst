@@ -34,23 +34,26 @@
             <Button x:Name="backButton" Command="{Binding GoBackCommand}" Style="{StaticResource BackButtonStyle}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-                <TextBlock  Text=" - Orders" Style="{StaticResource PageHeaderTextStyle}"/>
+                <TextBlock  Text="Orders" Style="{StaticResource PageHeaderTextStyle}"/>
             </StackPanel>
         </Grid>
         
-        <ListView
-                x:Name="customersListView"
-                Visibility="Visible"
-                Margin="10,0,0,60"
-                Grid.Row="1"
-                ItemsSource="{Binding Source={StaticResource ordersViewSource}}"
-                ItemTemplate="{StaticResource OrderItemMediumListViewTemplate}"
-                IsItemClickEnabled="True"
-                IncrementalLoadingThreshold="1"
-                DataFetchSize="2"
-                IncrementalLoadingTrigger="Edge" 
-                />
+        <GridView
+            x:Name="customersGridView"
+            AutomationProperties.AutomationId="ItemsGridView"
+            AutomationProperties.Name="Items"
+            TabIndex="1"
+            Grid.Row="1"
+            Margin="0,-4,0,0"
+            Padding="20,0,116,46"
+            ItemsSource="{Binding Source={StaticResource ordersViewSource}}"
+            ItemTemplate="{StaticResource OrderItemGridViewTemplate}"
+            SelectionMode="None"
+            IsItemClickEnabled="True"
+            />
 
+        
+        
         <ContentControl Visibility="{Binding GlobalViewModel.IsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,30,27" Style="{StaticResource OfflineControlStyle}" VerticalAlignment="Bottom" Width="50"/>
 
         <VisualStateManager.VisualStateGroups>

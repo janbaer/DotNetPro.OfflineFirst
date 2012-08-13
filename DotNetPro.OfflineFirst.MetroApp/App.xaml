@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Common/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <x:String x:Key="AppName">DotNetPro.OfflineFirst.MetroApp</x:String>
+            <x:String x:Key="AppName">DotNetPro.OfflineFirst</x:String>
             <common:BooleanToVisibilityConverter x:Name="BooleanToVisiblityConverter" />
         </ResourceDictionary>
     </Application.Resources>

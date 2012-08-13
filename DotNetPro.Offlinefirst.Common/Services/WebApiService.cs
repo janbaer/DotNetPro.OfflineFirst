@@ -54,7 +54,7 @@ namespace DotNetPro.Offlinefirst.Common.Services
             }
             catch (Exception)
             {
-                
+                // Todo    
             }
 
             return default(T);

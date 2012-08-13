@@ -6,6 +6,7 @@ using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Stores;
 using DotNetPro.Offlinefirst.Common.Infrastructure;
+using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 {
@@ -60,7 +61,16 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
         private async void LoadOrdersAsync(string customerId)
         {
-            await _orderStore.LoadAsync(customerId);
+            GlobalViewModel.WebServerIsOffline = false;
+
+            try
+            {
+                await _orderStore.LoadAsync(customerId);
+            }
+            catch (WebApiService.WebServerNotAvailableException)
+            {
+                GlobalViewModel.WebServerIsOffline = true;
+            }
         }
 
         private void CreateOrUpdateViewModels(IEnumerable<Order> orders)

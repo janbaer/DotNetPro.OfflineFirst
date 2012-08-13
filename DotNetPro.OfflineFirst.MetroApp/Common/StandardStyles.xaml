@@ -861,9 +861,12 @@
                 <Image Source="{Binding Image}" Stretch="UniformToFill"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding OrderId}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" />
+                    <TextBlock Text="{Binding OrderDate}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap" />
+                </StackPanel>
+                <TextBlock Text="{Binding ShipCity}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+                <TextBlock Text="{Binding ShipCountry}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
             </StackPanel>
         </Grid>
     </DataTemplate>

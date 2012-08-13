@@ -3,10 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.OfflineFirst.MetroApp.Common;
+
 using DotNetPro.Offlinefirst.Common.Stores;
 using DotNetPro.Offlinefirst.Common.Infrastructure;
 
+using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 {
@@ -53,7 +55,16 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
         private async void LoadCustomersAsync()
         {
-            await _customerStore.LoadAsync();
+            GlobalViewModel.WebServerIsOffline = false;
+
+            try
+            {
+                await _customerStore.LoadAsync();
+            }
+            catch (WebApiService.WebServerNotAvailableException)
+            {
+                GlobalViewModel.WebServerIsOffline = true;
+            }
         }
 
         private void CreateOrUpdateViewModels(IEnumerable<Customer> customers)

@@ -4,26 +4,53 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
     
-    <DataTemplate x:Key="CustomerItemMediumListViewTemplate">
-        <Button Command="{Binding DataContext.ShowOrdersCommand, ElementName=layoutRoot}" CommandParameter="{Binding}" 
-                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                d:DesignWidth="120" d:DesignHeight="214">
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-<!--                            <Image Source="{Binding PosterUrl}" MinHeight="230" MinWidth="154" Stretch="UniformToFill"/>-->
-                        </Border>
-                        <StackPanel VerticalAlignment="Bottom" Margin="0" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" HorizontalAlignment="Stretch">
-                            <Border HorizontalAlignment="Stretch" Height="0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}"/>
-                            <TextBlock Text="{Binding CompanyName}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="40" TextWrapping="NoWrap" Margin="15,0,15,0"/>
-                            <TextBlock Text="{Binding City}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" FontWeight="Normal" TextWrapping="NoWrap" Margin="15,0,15,10"/>
-                        </StackPanel>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-    </DataTemplate>      
+    <DataTemplate x:Key="CustomerItemGridViewTemplate">
+        <Grid HorizontalAlignment="Left" Width="250" Height="250">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                <TextBlock Text="{Binding CompanyName}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                <TextBlock Text="{Binding ContactTitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding Address}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding PostalCode}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                    <TextBlock Text=" " Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap" Margin="0,0,0,0"/>
+                    <TextBlock Text="{Binding City}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="0,0,15,10"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>    
+   
+    <DataTemplate x:Key="OrderItemGridViewTemplate">
+        <Grid HorizontalAlignment="Left" Width="250" Height="250">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                <StackPanel Orientation="Horizontal" Margin="15,0,15,0">
+                    <TextBlock Text="Order:" Margin="0,0,10,0"
+                        Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                        Height="60" />                    
+                    <TextBlock Text="{Binding OrderID}"
+                        Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                        Height="60"  />
+                   <TextBlock Text="-" Margin="10,0,10,0"
+                        Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                        Height="60" />
+                   <TextBlock Text="{Binding OrderDate}"
+                        Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                        Height="60"  />
+                </StackPanel>                
+                <TextBlock Text="{Binding ShipName}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding ShipAddress}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding ShipCity}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding ShipCountry}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>    
+   
+    
     
     <DataTemplate x:Key="OrderItemMediumListViewTemplate">
         <Button Command="{Binding DataContext.ShowDetailsCommand, ElementName=layoutRoot}" CommandParameter="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DesignWidth="120" d:DesignHeight="214">

@@ -1,5 +1,5 @@
 using System;
-
+using System.ComponentModel;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.OfflineFirst.MetroApp.Common;
 
@@ -18,9 +18,36 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private string _postalCode;
         private string _phone;
         private string _fax;
+        private string _customerAddress;
+        private string _image;
+
         #endregion
 
         #region Properties
+
+        public string Address
+        {
+            get { return _address; }
+            set { SetProperty(ref _address, value); }
+        }
+
+        public string City
+        {
+            get { return _city; }
+            set { SetProperty(ref _city, value); }
+        }
+
+        public string CompanyName
+        {
+            get { return _companyName; }
+            set { SetProperty(ref _companyName, value); }
+        }
+
+        public string ContactTitle
+        {
+            get { return _contactTitle; }
+            set { SetProperty(ref _contactTitle, value); }
+        }
 
         public Customer Customer
         {
@@ -39,34 +66,16 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             set { SetProperty(ref _customerId, value); }
         }
 
-        public string CompanyName
+        public string Fax
         {
-            get { return _companyName; }
-            set { SetProperty(ref _companyName, value); }
+            get { return _fax; }
+            set { SetProperty(ref _fax, value); }
         }
 
-        public string ContactTitle
+        public string Image
         {
-            get { return _contactTitle; }
-            set { SetProperty(ref _contactTitle, value); }
-        }
-
-        public string Address
-        {
-            get { return _address; }
-            set { SetProperty(ref _address, value); }
-        }
-
-        public string City
-        {
-            get { return _city; }
-            set { SetProperty(ref _city, value); }
-        }
-
-        public string Region
-        {
-            get { return _region; }
-            set { SetProperty(ref _region, value); }
+            get { return _image; }
+            set { SetProperty(ref _image, value); }
         }
 
         public string PostalCode
@@ -81,11 +90,12 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             set { SetProperty(ref _phone, value); }
         }
 
-        public string Fax
+        public string Region
         {
-            get { return _fax; }
-            set { SetProperty(ref _fax, value); }
+            get { return _region; }
+            set { SetProperty(ref _region, value); }
         }
+
         #endregion
 
         private void ReadProperties(Customer customer)
@@ -98,7 +108,9 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             this.Region = customer.Region;
             this.PostalCode = customer.PostalCode;
             this.Phone = customer.Phone;
-            this.Fax = customer.Fax;           
+            this.Fax = customer.Fax;
+
+            this.Image = "../Assets/DarkGray.png";
         }
     }
 }
