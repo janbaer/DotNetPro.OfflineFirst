@@ -3,10 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using DotNetPro.Offlinefirst.Common.Models;
-
 using DotNetPro.Offlinefirst.Common.Stores;
 using DotNetPro.Offlinefirst.Common.Infrastructure;
-
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.Offlinefirst.Common.Services;
 
@@ -16,11 +14,10 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
     {
         private readonly ICustomerStore _customerStore;
         private readonly Observer<IEnumerable<Customer>> _customerObserver;
-        private bool _loaded;
+        private bool _isLoading;
 
         public CustomersViewModel(GlobalViewModel globalViewModel,
-                                  ICustomerStore customerStore, INavigationService navigationService)
-            : base(navigationService)
+                                  ICustomerStore customerStore, INavigationService navigationService) : base(navigationService)
         {
             this.GlobalViewModel = globalViewModel;
 
@@ -30,21 +27,26 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
             this.Customers = new ObservableCollection<CustomerViewModel>();
 
+            this.RefreshCommand = new DelegateCommand(Refresh);
             this.ShowOrdersCommand = new DelegateCommand(ShowOrders);
         }
 
+        public DelegateCommand RefreshCommand { get; set; }
         public DelegateCommand ShowOrdersCommand { get; set; }
 
         public ObservableCollection<CustomerViewModel> Customers { get; private set; }
         public GlobalViewModel GlobalViewModel { get; private set; }
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { SetProperty(ref _isLoading, value); }
+        }
 
         protected override void OnNavigatedTo(object parameter)
         {
-            if (!_loaded)
+            if (this.Customers.Count == 0)
             {
                 LoadCustomersAsync();
-
-                _loaded = true;
             }
         }
 
@@ -59,11 +61,17 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
             try
             {
+                this.IsLoading = true;
+
                 await _customerStore.LoadAsync();
             }
             catch (WebApiService.WebServerNotAvailableException)
             {
                 GlobalViewModel.WebServerIsOffline = true;
+            }
+            finally
+            {
+                this.IsLoading = false;
             }
         }
 
@@ -86,9 +94,14 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             }
         }
 
+        private void Refresh(object parameter)
+        {
+           LoadCustomersAsync();
+        }
+
         private void ShowOrders(object parameter)
         {
-            this.NavigationService.NavigateTo<OrdersViewModel>(((CustomerViewModel)parameter).Customer);
+            this.NavigationService.NavigateTo<OrdersViewModel>(((CustomerViewModel)parameter).Customer.CustomerId);
         }
 
     }

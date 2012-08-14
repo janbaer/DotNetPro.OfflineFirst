@@ -14,11 +14,11 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
     {
         private readonly IOrderStore _orderStore;
         private readonly Observer<IEnumerable<Order>> _orderStoreObserver;
-        private Customer _customer;
+        private string _customerId;
+        private bool _isLoading;
 
-        public OrdersViewModel(GlobalViewModel globalViewModel, IOrderStore orderStore,
-                                INavigationService navigationService)
-            : base(navigationService)
+        public OrdersViewModel( GlobalViewModel globalViewModel, IOrderStore orderStore,
+                                INavigationService navigationService) : base(navigationService)
         {
             this.GlobalViewModel = globalViewModel;
             this.Orders = new ObservableCollection<OrderViewModel>();
@@ -27,34 +27,46 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             _orderStoreObserver = new Observer<IEnumerable<Order>>(null, null, OnNextOrders);
             _orderStore.Subscribe(_orderStoreObserver);
 
-            ShowOrderDetailsCommand = new DelegateCommand(ShowOrderDetails);
+            this.RefreshCommand = new DelegateCommand(Refresh);
+            this.ShowOrderDetailsCommand = new DelegateCommand(ShowOrderDetails);
         }
 
+        public DelegateCommand RefreshCommand { get; set; }
         public DelegateCommand ShowOrderDetailsCommand { get; set; }
 
-        public Customer Customer
+        #region Properties
+        public string CustomerId
         {
-            get { return _customer; }
-            private set { SetProperty(ref _customer, value); }
+            get { return _customerId; }
+            private set { SetProperty(ref _customerId, value); }
         }
-        public ObservableCollection<OrderViewModel> Orders { get; private set; }
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { SetProperty(ref _isLoading, value); }
+        }
         public GlobalViewModel GlobalViewModel { get; private set; }
+        public ObservableCollection<OrderViewModel> Orders { get; private set; }
+        #endregion
+
 
         protected override void OnNavigatedTo(object parameter)
         {
-            var customer = (Customer)parameter;
+            var customerId = parameter as string;
 
-            if (this.Customer == null || this.Customer.CustomerId != customer.CustomerId)
+            if (string.IsNullOrEmpty(customerId)) return;
+
+            if (this.CustomerId != customerId)
             {
-                this.Customer = (Customer)parameter;
+                this.CustomerId = customerId;
 
-                LoadOrdersAsync(this.Customer.CustomerId);
+                LoadOrdersAsync(customerId);
             }
         }
 
         private void OnNextOrders(IEnumerable<Order> orders)
         {
-            var query = from o in orders where o.CustomerID == this.Customer.CustomerId select o;
+            var query = from o in orders where o.CustomerID == this.CustomerId select o;
 
             Dispatch.Action(() => CreateOrUpdateViewModels(query));
         }
@@ -62,6 +74,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private async void LoadOrdersAsync(string customerId)
         {
             GlobalViewModel.WebServerIsOffline = false;
+            this.IsLoading = true;
 
             try
             {
@@ -70,6 +83,10 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             catch (WebApiService.WebServerNotAvailableException)
             {
                 GlobalViewModel.WebServerIsOffline = true;
+            }
+            finally
+            {
+                this.IsLoading = false;
             }
         }
 
@@ -84,11 +101,14 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             }
         }
 
+        private void Refresh(object parameter)
+        {
+            LoadOrdersAsync(this.CustomerId);
+        }
+
         private void ShowOrderDetails(object parameter)
         {
-            var order = (Order)parameter;
 
-            //            NavigationService.NavigateTo<OrderDetailsViewModel>(order);
         }
     }
 }

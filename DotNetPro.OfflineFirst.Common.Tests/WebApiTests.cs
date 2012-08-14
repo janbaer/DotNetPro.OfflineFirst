@@ -14,8 +14,7 @@ namespace DotNetPro.OfflineFirst.Common.Tests
         public void WhenCallGetCustomersAsync_ItShouldReturnAListOfCustomers()
         {
             // ARRANGE
-            var baseAddress = ConfigurationManager.AppSettings["WebApiBaseAddress"];
-            var service = new WebApiService(baseAddress);
+            var service = new WebApiService();
 
             // ACT
             var customers = service.GetCustomersAsync().Result;
@@ -27,11 +26,10 @@ namespace DotNetPro.OfflineFirst.Common.Tests
         }
         
         [TestMethod]
-        public void WhenCallGetEmploayeessAsync_ItShouldReturnAListOfEmployees()
+        public void WhenCallGetEmploayeesAsync_ItShouldReturnAListOfEmployees()
         {
             // ARRANGE
-            var baseAddress = ConfigurationManager.AppSettings["WebApiBaseAddress"];
-            var service = new WebApiService(baseAddress);
+            var service = new WebApiService();
 
             // ACT
             var employees = service.GetEmployeesAsync().Result;

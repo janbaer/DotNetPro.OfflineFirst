@@ -51,8 +51,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Common
         {
             private readonly INavigationService _navigationService;
 
-            public NavigationCommand(Action<object> action, INavigationService navigationService)
-                : base(action)
+            public NavigationCommand(Action<object> action, INavigationService navigationService) : base(action)
             {
                 _navigationService = navigationService;
                 _navigationService.CanGoBackChanged += EventService.MakeWeak(OnCanGoBackChanged, h => _navigationService.CanGoBackChanged -= h);

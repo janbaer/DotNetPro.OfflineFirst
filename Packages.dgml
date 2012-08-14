@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="DotNetPro.OfflineFirst.MetroApp" Label="DotNetPro.OfflineFirst.MetroApp" Category="Project" />
+    <Node Id="Callisto 1.0.10" Label="Callisto 1.0.10" Category="Package" />
+    <Node Id="ControllerRT 4.5.0.0" Label="ControllerRT 4.5.0.0" Category="Package" />
+    <Node Id="ControllerRT.MetroIoc 4.5.0.0" Label="ControllerRT.MetroIoc 4.5.0.0" Category="Package" />
+  </Nodes>
+  <Links>
+    <Link Source="ControllerRT.MetroIoc 4.5.0.0" Target="ControllerRT 4.5.0.0" Category="Package Dependency" />
+    <Link Source="DotNetPro.OfflineFirst.MetroApp" Target="Callisto 1.0.10" Category="Installed Package" />
+    <Link Source="DotNetPro.OfflineFirst.MetroApp" Target="ControllerRT.MetroIoc 4.5.0.0" Category="Installed Package" />
+  </Links>
+  <Categories>
+    <Category Id="Project" />
+    <Category Id="Package" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

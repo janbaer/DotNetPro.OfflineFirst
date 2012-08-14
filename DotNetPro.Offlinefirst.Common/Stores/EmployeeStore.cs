@@ -30,7 +30,6 @@ namespace DotNetPro.Offlinefirst.Common.Stores
                 this.OnNext(_employees);
             }
 
-
             var employees = new List<Employee>(await this.WebApiService.GetEmployeesAsync());
             this.OnNext(employees);
 
@@ -43,7 +42,6 @@ namespace DotNetPro.Offlinefirst.Common.Stores
             if (_employees == null) return;
 
             await this.OfflineStore.SaveAsync("employees", _employees, this.KnownTypes);
-
         }
     }
 }

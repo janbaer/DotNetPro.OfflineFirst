@@ -2,7 +2,6 @@
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.Offlinefirst.Common.Services;
-using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
 using DotNetPro.Offlinefirst.Common.Stores;
 
@@ -14,13 +13,11 @@ namespace DotNetPro.OfflineFirst.MetroApp
     {
         public MetroAppContainer()
         {
-            const string WEB_API_BASE_ADDRESS = "http://northwind-1.apphb.com";
-
             RegisterInstance(typeof (IResolver), this);
             Register<IViewResolver, MetroAppViewResolver>(null, new SingletonLifecycle());
             Register<INavigationService, NavigationService>(null, new SingletonLifecycle());
 
-            RegisterInstance(typeof (IWebApiService), new WebApiService(WEB_API_BASE_ADDRESS));
+            RegisterInstance(typeof (IWebApiService), new WebApiService());
             Register<IOfflineStore, OfflineStore>(null, new SingletonLifecycle());
 
             Register<IEmployeeStore, EmployeeStore>(null, new SingletonLifecycle());

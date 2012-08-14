@@ -1,29 +1,16 @@
-﻿using DotNetPro.OfflineFirst.MetroApp.Common;
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using DotNetPro.OfflineFirst.MetroApp.Stores;
-using DotNetPro.OfflineFirst.MetroApp.ViewModels;
-
-using MetroIoc;
-
-using Windows.ApplicationModel;
+﻿using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Networking.Connectivity;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+
+using MetroIoc;
+
+using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.OfflineFirst.MetroApp.Stores;
+using DotNetPro.OfflineFirst.MetroApp.ViewModels;
 
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 
@@ -34,8 +21,6 @@ namespace DotNetPro.OfflineFirst.MetroApp
     /// </summary>
     sealed partial class App : Application
     {
-
-
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -56,6 +41,7 @@ namespace DotNetPro.OfflineFirst.MetroApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+ 
             // Do not repeat app initialization when already running, just ensure that
             // the window is active
             if (args.PreviousExecutionState == ApplicationExecutionState.Running)
@@ -69,12 +55,6 @@ namespace DotNetPro.OfflineFirst.MetroApp
             var rootFrame = new Frame();
             SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
-            if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-            {
-                // Restore the saved session state only when appropriate
-                await SuspensionManager.RestoreAsync();
-            }
-
             // Place the frame in the current Window and ensure that it is active
             Window.Current.Content = rootFrame;
             Window.Current.Activate();
@@ -83,10 +63,14 @@ namespace DotNetPro.OfflineFirst.MetroApp
 
             Container = new MetroAppContainer();
 
-            await Container.Resolve<ApplicationStore>().LoadAsync();
-
             var navigationService = Container.Resolve<INavigationService>();
             navigationService.NavigateTo<CustomersViewModel>();
+
+            if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+            {
+                // Restore the saved session state only when appropriate
+//                await SuspensionManager.RestoreAsync();
+            }
 
             NetworkInformation.NetworkStatusChanged += sender => CheckInternetConnection();
             CheckInternetConnection();

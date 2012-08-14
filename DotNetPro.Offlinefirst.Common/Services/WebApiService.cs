@@ -4,40 +4,38 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DotNetPro.Offlinefirst.Common.Models;
+using DotNetPro.Offlinefirst.Common.Properties;
 using Newtonsoft.Json;
 
 namespace DotNetPro.Offlinefirst.Common.Services
 {
-
     public class WebApiService : IWebApiService
     {
-        public WebApiService(string baseAddress)
-        {
-            this.BaseAddress = baseAddress;
-        }
-
-        public string BaseAddress { get; set; }
+        private const string BaseAddress = "http://northwind-1.apphb.com/";
+        private const string CustomersResourceUrl = "customers";
+        private const string EmployeesResourceUrl = "employees";
+        private const string OrdersResourceUrl = "customers/{0}/orders";
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync()
         {
-            return await DownloadData<IEnumerable<Customer>>("/customers") ?? new List<Customer>();
+            return await DownloadData<IEnumerable<Customer>>(CustomersResourceUrl) ?? new List<Customer>();
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
         {
-            return await DownloadData<IEnumerable<Employee>>("/employees") ?? new List<Employee>();
+            return await DownloadData<IEnumerable<Employee>>(EmployeesResourceUrl) ?? new List<Employee>();
         }
         
         public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(string customerId)
         {
-            return await DownloadData<IEnumerable<Order>>(string.Format("customers/{0}/orders", customerId)) ?? new List<Order>();
+            return await DownloadData<IEnumerable<Order>>(string.Format(OrdersResourceUrl, customerId)) ?? new List<Order>();
         }
 
         private async Task<T> DownloadData<T>(string url) where T:IEnumerable<object>
         {
             var httpClient = new HttpClient();
 
-            httpClient.BaseAddress = new Uri(this.BaseAddress);
+            httpClient.BaseAddress = new Uri(WebApiService.BaseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             try
@@ -48,13 +46,13 @@ namespace DotNetPro.Offlinefirst.Common.Services
 
                 return JsonConvert.DeserializeObject<T>(json);
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException exception)
             {
-                throw new WebServerNotAvailableException(string.Format("The WebService '{0}' is not available!", this.BaseAddress));
+                throw new WebServerNotAvailableException(string.Format(Resources.WebApiServiceNotAvailableExceptionMessage, WebApiService.BaseAddress), exception);
             }
             catch (Exception)
             {
-                // Todo    
+                // ???  
             }
 
             return default(T);
@@ -62,7 +60,7 @@ namespace DotNetPro.Offlinefirst.Common.Services
 
         public class WebServerNotAvailableException : Exception
         {
-            public WebServerNotAvailableException(string message) : base(message)
+            public WebServerNotAvailableException(string message, Exception innerException) : base(message, innerException)
             {
             }
         }

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DotNetPro.Offlinefirst.Common.Models;
+using DotNetPro.Offlinefirst.Common.Services;
 
-namespace DotNetPro.Offlinefirst.Common.Services
+namespace DotNetPro.Offlinefirst.Common.Stores
 {
     public abstract class BaseStore<T>
     {
@@ -34,10 +34,7 @@ namespace DotNetPro.Offlinefirst.Common.Services
 
         public IDisposable Subscribe(IObserver<T> observer)
         {
-            if (observer == null)
-            {
-                throw new ArgumentNullException("observer");
-            }
+            if (observer == null) throw new ArgumentNullException("observer");
 
             lock (ThisLock)
             {

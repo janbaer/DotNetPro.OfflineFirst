@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.OfflineFirst.MetroApp.ViewModels;
 using Windows.UI.Xaml.Controls;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Views
@@ -10,9 +11,13 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
     /// </summary>
     public sealed partial class OrdersPage : DotNetPro.OfflineFirst.MetroApp.Common.LayoutAwarePage
     {
+        private readonly OrdersViewModel _viewModel;
+
         public OrdersPage()
         {
             this.InitializeComponent();
+
+            _viewModel = App.Container.Resolve<OrdersViewModel>();
         }
 
         /// <summary>
@@ -26,6 +31,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+
         }
 
         /// <summary>
@@ -36,6 +42,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+
         }
     }
 }

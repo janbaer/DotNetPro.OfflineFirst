@@ -23,7 +23,6 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private string _shipRegion;
         private string _shipCountry;
         private string _image;
-
         #endregion
 
         #region Properties

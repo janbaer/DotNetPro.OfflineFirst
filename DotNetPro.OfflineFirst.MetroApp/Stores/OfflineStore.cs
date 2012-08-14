@@ -5,10 +5,9 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
-
 using DotNetPro.Offlinefirst.Common.Services;
 
-namespace DotNetPro.OfflineFirst.MetroApp.Services
+namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public class OfflineStore : IOfflineStore
     {

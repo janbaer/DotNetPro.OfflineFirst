@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Common
@@ -14,8 +10,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Common
 
         public event EventHandler CanExecuteChanged;
 
-        public DelegateCommand(Action<object> execute)
-            : this(execute, null)
+        public DelegateCommand(Action<object> execute) : this(execute, null)
         {
         }
 
@@ -32,6 +27,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Common
                 CanExecuteChanged(this, EventArgs.Empty);
             }
         }
+
 
         public virtual bool CanExecute(object parameter)
         {

@@ -28,8 +28,8 @@ namespace DotNetPro.Offlinefirst.Common.Stores
             if (_orders == null)
             {
                 this._orders = await this.OfflineStore.LoadAsync<List<Order>>("orders", this.KnownTypes);
-                this.OnNext(from o in this._orders where o.CustomerID == customerId select o);
             }
+            this.OnNext(from o in this._orders where o.CustomerID == customerId select o);
 
             var orders = await this.WebApiService.GetOrdersForCustomerAsync(customerId);
 

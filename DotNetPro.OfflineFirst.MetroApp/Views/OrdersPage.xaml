@@ -36,6 +36,10 @@
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
                 <TextBlock  Text="Orders" Style="{StaticResource PageHeaderTextStyle}"/>
             </StackPanel>
+            <ProgressRing HorizontalAlignment="Right" Margin="0,0,30,-32" VerticalAlignment="Center" IsActive="{Binding IsLoading}" 
+                          ToolTipService.ToolTip="Loading..." Grid.Column="1" Foreground="{StaticResource ProgressRingBrush}" MinWidth="40" MinHeight="40" />
+            <ContentControl Visibility="{Binding GlobalViewModel.IsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,90,27" Style="{StaticResource OfflineControlStyle}" VerticalAlignment="Bottom" Width="50" Grid.Column="1"/>
+            <ContentControl Visibility="{Binding GlobalViewModel.WebServerIsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,150,27" Style="{StaticResource WebServerOfflineControlStyle}" VerticalAlignment="Bottom" Width="50" Grid.Column="1"/>
         </Grid>
         
         <GridView
@@ -51,10 +55,6 @@
             SelectionMode="None"
             IsItemClickEnabled="True"
             />
-
-        
-        
-        <ContentControl Visibility="{Binding GlobalViewModel.IsOffline, Converter={StaticResource BooleanToVisiblityConverter}}" HorizontalAlignment="Right" Height="50" Margin="0,0,30,27" Style="{StaticResource OfflineControlStyle}" VerticalAlignment="Bottom" Width="50"/>
 
         <VisualStateManager.VisualStateGroups>
 

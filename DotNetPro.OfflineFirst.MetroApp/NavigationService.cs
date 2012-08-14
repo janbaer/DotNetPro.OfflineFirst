@@ -81,10 +81,7 @@ namespace DotNetPro.OfflineFirst.MetroApp
 
         private void OnFrameNavigated(object sender, NavigationEventArgs e)
         {
-            //if (e.NavigationMode == NavigationMode.New)
-            {
-                Bind(e.SourcePageType, (IView)e.Content);
-            }
+            Bind(e.SourcePageType, (IView)e.Content);
         }
 
         protected virtual void OnCanGoBackChanged(EventArgs e)

@@ -13,13 +13,11 @@ namespace DotNetPro.OfflineFirst.MetroApp.Common
     public static class Dispatch
     {
         #region Properties
-
         /// <summary>
         ///   Sets or Returns the instance of the Dispatcher that runs on the 
         ///   main (UI) thread of the application.
         /// </summary>
         public static CoreDispatcher MainDispatcher { get; set; }
-
         #endregion
 
         #region Public Methods

@@ -18,9 +18,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         private string _postalCode;
         private string _phone;
         private string _fax;
-        private string _customerAddress;
         private string _image;
-
         #endregion
 
         #region Properties

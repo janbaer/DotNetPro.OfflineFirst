@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-using DotNetPro.Offlinefirst.Common.Infrastructure;
-using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Services;
 using DotNetPro.Offlinefirst.Common.Stores;
 
@@ -27,15 +23,11 @@ namespace DotNetPro.OfflineFirst.MetroApp.Stores
             _orderStore = orderStore;
         }
 
-        public async Task LoadAsync()
-        {
-        }
-
         public async Task SaveAsync()
         {
-            _customerStore.SaveAsync();
-            _employeeStore.SaveAsync();
-            _orderStore.SaveAsync();
+            await _customerStore.SaveAsync();
+            await _employeeStore.SaveAsync();
+            await _orderStore.SaveAsync();
         }
 
         public void Clear()
