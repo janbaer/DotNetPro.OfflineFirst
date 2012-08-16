@@ -13,7 +13,6 @@ namespace DotNetPro.Offlinefirst.Common.Services
     {
         private const string BaseAddress = "http://northwind-1.apphb.com/";
         private const string CustomersResourceUrl = "customers";
-        private const string EmployeesResourceUrl = "employees";
         private const string OrdersResourceUrl = "customers/{0}/orders";
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync()
@@ -21,11 +20,6 @@ namespace DotNetPro.Offlinefirst.Common.Services
             return await DownloadData<IEnumerable<Customer>>(CustomersResourceUrl) ?? new List<Customer>();
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync()
-        {
-            return await DownloadData<IEnumerable<Employee>>(EmployeesResourceUrl) ?? new List<Employee>();
-        }
-        
         public async Task<IEnumerable<Order>> GetOrdersForCustomerAsync(string customerId)
         {
             return await DownloadData<IEnumerable<Order>>(string.Format(OrdersResourceUrl, customerId)) ?? new List<Order>();

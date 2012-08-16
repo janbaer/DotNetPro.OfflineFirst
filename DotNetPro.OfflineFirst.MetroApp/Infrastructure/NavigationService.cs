@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
 using DotNetPro.OfflineFirst.MetroApp.Common;
 
-namespace DotNetPro.OfflineFirst.MetroApp
+namespace DotNetPro.OfflineFirst.MetroApp.Infrastructure
 {
     public class NavigationService : INavigationService
     {

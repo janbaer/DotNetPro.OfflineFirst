@@ -1,7 +1,9 @@
 ﻿using System;
 using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.Offlinefirst.Common.Services;
+using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
 using DotNetPro.Offlinefirst.Common.Stores;
 
@@ -16,11 +18,11 @@ namespace DotNetPro.OfflineFirst.MetroApp
             RegisterInstance(typeof (IResolver), this);
             Register<IViewResolver, MetroAppViewResolver>(null, new SingletonLifecycle());
             Register<INavigationService, NavigationService>(null, new SingletonLifecycle());
+            Register<INetworkStatus, NetworkStatus>(null, new SingletonLifecycle());
 
             RegisterInstance(typeof (IWebApiService), new WebApiService());
             Register<IOfflineStore, OfflineStore>(null, new SingletonLifecycle());
 
-            Register<IEmployeeStore, EmployeeStore>(null, new SingletonLifecycle());
             Register<ICustomerStore, CustomerStore>(null, new SingletonLifecycle());
             Register<IOrderStore, OrderStore>(null, new SingletonLifecycle());
 

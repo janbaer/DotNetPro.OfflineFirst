@@ -26,13 +26,13 @@ namespace DotNetPro.OfflineFirst.Common.Tests
         }
         
         [TestMethod]
-        public void WhenCallGetEmploayeesAsync_ItShouldReturnAListOfEmployees()
+        public void WhenCallGetOrdersAsync_ItShouldReturnAListOfOrders()
         {
             // ARRANGE
             var service = new WebApiService();
 
             // ACT
-            var employees = service.GetEmployeesAsync().Result;
+            var employees = service.GetOrdersForCustomerAsync("ALFKI").Result;
 
             // ASSERT
             Assert.IsNotNull(employees);

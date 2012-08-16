@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 
 using MetroIoc;
 
+using DotNetPro.Offlinefirst.Common.Infrastructure;
+
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
@@ -21,6 +23,7 @@ namespace DotNetPro.OfflineFirst.MetroApp
     /// </summary>
     sealed partial class App : Application
     {
+        private INetworkStatus _networkStatus;
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -72,7 +75,8 @@ namespace DotNetPro.OfflineFirst.MetroApp
 //                await SuspensionManager.RestoreAsync();
             }
 
-            NetworkInformation.NetworkStatusChanged += sender => CheckInternetConnection();
+            _networkStatus = App.Container.Resolve<INetworkStatus>();
+            _networkStatus.NetworkStatusChanged += (sender, eventArgs) => CheckInternetConnection();
             CheckInternetConnection();
         }
 
@@ -96,12 +100,7 @@ namespace DotNetPro.OfflineFirst.MetroApp
 
         private void CheckInternetConnection()
         {
-            bool isOffline = (NetworkInformation.GetInternetConnectionProfile() == null ||
-                              NetworkInformation.GetInternetConnectionProfile().GetNetworkConnectivityLevel() !=
-                              NetworkConnectivityLevel.InternetAccess);
-
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Container.Resolve<GlobalViewModel>().IsOffline = isOffline);
-
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Container.Resolve<GlobalViewModel>().IsOffline = _networkStatus.IsOffline);
         }
     }
 }

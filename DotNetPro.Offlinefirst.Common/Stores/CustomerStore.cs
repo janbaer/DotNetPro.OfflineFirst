@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Services;
 
@@ -11,8 +11,9 @@ namespace DotNetPro.Offlinefirst.Common.Stores
     {
         private List<Customer> _customers;
 
-        public CustomerStore(IOfflineStore offlineStore, IWebApiService webApiService) : base(offlineStore, webApiService)
+        public CustomerStore(IOfflineStore offlineStore, IWebApiService webApiService, INetworkStatus networkStatus) : base(offlineStore, webApiService, networkStatus)
         {
+
         }
 
         public void Clear()
@@ -28,11 +29,14 @@ namespace DotNetPro.Offlinefirst.Common.Stores
                 this.OnNext(_customers);
             }
 
-            var customers = new List<Customer>(await this.WebApiService.GetCustomersAsync());
-            this.OnNext(customers);
+            if (this.NetworkStatus.IsOnline)
+            {
+                var customers = new List<Customer>(await this.WebApiService.GetCustomersAsync());
+                this.OnNext(customers);
 
-            _customers.Clear();
-            _customers.AddRange(customers);           
+                _customers.Clear();
+                _customers.AddRange(customers);
+            }        
         }
 
         public async Task SaveAsync()

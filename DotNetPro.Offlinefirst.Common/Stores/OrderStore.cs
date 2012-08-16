@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Services;
 
@@ -12,7 +12,7 @@ namespace DotNetPro.Offlinefirst.Common.Stores
     {
         private List<Order> _orders;
  
-        public OrderStore(IOfflineStore offlineStore, IWebApiService webApiService) : base(offlineStore, webApiService)
+        public OrderStore(IOfflineStore offlineStore, IWebApiService webApiService, INetworkStatus networkStatus) : base(offlineStore, webApiService, networkStatus)
         {
         }
 
@@ -31,12 +31,15 @@ namespace DotNetPro.Offlinefirst.Common.Stores
             }
             this.OnNext(from o in this._orders where o.CustomerID == customerId select o);
 
-            var orders = await this.WebApiService.GetOrdersForCustomerAsync(customerId);
+            if (this.NetworkStatus.IsOnline)
+            {
+                var orders = await this.WebApiService.GetOrdersForCustomerAsync(customerId);
 
-            this.OnNext(orders);
+                this.OnNext(orders);
 
-            _orders.RemoveAll(o => o.CustomerID == customerId);
-            _orders.AddRange(orders);
+                _orders.RemoveAll(o => o.CustomerID == customerId);
+                _orders.AddRange(orders);
+            }
         }
 
         public async Task SaveAsync()

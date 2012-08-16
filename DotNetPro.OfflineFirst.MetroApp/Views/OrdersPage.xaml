@@ -34,7 +34,7 @@
             <Button x:Name="backButton" Command="{Binding GoBackCommand}" Style="{StaticResource BackButtonStyle}"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-                <TextBlock  Text="Orders" Style="{StaticResource PageHeaderTextStyle}"/>
+                <TextBlock  Text="Orders" Style="{StaticResource PageSubheaderTextStyle}"/>
             </StackPanel>
             <ProgressRing HorizontalAlignment="Right" Margin="0,0,30,-32" VerticalAlignment="Center" IsActive="{Binding IsLoading}" 
                           ToolTipService.ToolTip="Loading..." Grid.Column="1" Foreground="{StaticResource ProgressRingBrush}" MinWidth="40" MinHeight="40" />
