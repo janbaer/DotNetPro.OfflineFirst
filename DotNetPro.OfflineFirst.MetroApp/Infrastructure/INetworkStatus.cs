@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DotNetPro.Offlinefirst.Common.Infrastructure
+namespace DotNetPro.OfflineFirst.MetroApp.Infrastructure
 {
     public interface INetworkStatus
     {

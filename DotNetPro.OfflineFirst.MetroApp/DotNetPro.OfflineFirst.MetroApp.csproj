@@ -101,17 +101,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\DotNetPro.Offlinefirst.Common\DotNetPro.Offlinefirst.Common.csproj">
-      <Project>{d51ab533-9858-4f93-b2b5-c81d253b8a23}</Project>
-      <Name>DotNetPro.Offlinefirst.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\INetworkStatus.cs" />
     <Compile Include="Infrastructure\NetworkStatus.cs" />
+    <Compile Include="Infrastructure\Observer.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Services\IWebApiService.cs" />
+    <Compile Include="Services\WebApiService.cs" />
     <Compile Include="Stores\ApplicationStore.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\Dispatch.cs" />
@@ -130,7 +129,13 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Stores\BaseStore.cs" />
+    <Compile Include="Stores\CustomerStore.cs" />
+    <Compile Include="Stores\ICustomerStore.cs" />
+    <Compile Include="Stores\IOfflineStore.cs" />
+    <Compile Include="Stores\IOrderStore.cs" />
     <Compile Include="Stores\OfflineStore.cs" />
+    <Compile Include="Stores\OrderStore.cs" />
     <Compile Include="ViewModels\CustomersViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\GlobalViewModel.cs" />

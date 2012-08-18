@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using DotNetPro.OfflineFirst.MetroApp.Models;
+using DotNetPro.OfflineFirst.MetroApp.Services;
+using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Stores;
 using DotNetPro.Offlinefirst.Common.Infrastructure;

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Properties;
 using Newtonsoft.Json;
 
-namespace DotNetPro.Offlinefirst.Common.Services
+namespace DotNetPro.OfflineFirst.MetroApp.Services
 {
     public class WebApiService : IWebApiService
     {
@@ -42,7 +42,7 @@ namespace DotNetPro.Offlinefirst.Common.Services
             }
             catch (HttpRequestException exception)
             {
-                throw new WebServerNotAvailableException(string.Format(Resources.WebApiServiceNotAvailableExceptionMessage, WebApiService.BaseAddress), exception);
+                throw new WebServerNotAvailableException(string.Format("Der WebServer '{0}' ist nicht erreichbar!", WebApiService.BaseAddress), exception);
             }
             catch (Exception)
             {

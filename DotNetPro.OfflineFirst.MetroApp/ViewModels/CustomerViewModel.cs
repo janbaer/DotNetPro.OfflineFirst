@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.OfflineFirst.MetroApp.Common;
 

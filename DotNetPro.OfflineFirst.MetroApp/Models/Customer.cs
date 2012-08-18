@@ -1,5 +1,5 @@
 
-namespace DotNetPro.Offlinefirst.Common.Models
+namespace DotNetPro.OfflineFirst.MetroApp.Models
 {
     public class Customer
     {

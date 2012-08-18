@@ -54,12 +54,6 @@
     <Compile Include="WebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DotNetPro.Offlinefirst.Common\DotNetPro.Offlinefirst.Common.csproj">
-      <Project>{d51ab533-9858-4f93-b2b5-c81d253b8a23}</Project>
-      <Name>DotNetPro.Offlinefirst.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,12 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Services;
+using DotNetPro.Offlinefirst.Common.Stores;
 
-namespace DotNetPro.Offlinefirst.Common.Stores
+namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public class OrderStore : BaseStore<IEnumerable<Order>>, IOrderStore
     {

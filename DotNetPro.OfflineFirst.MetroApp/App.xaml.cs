@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel;
+﻿using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Networking.Connectivity;

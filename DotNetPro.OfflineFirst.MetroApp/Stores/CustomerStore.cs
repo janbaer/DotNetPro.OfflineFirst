@@ -1,11 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
-using DotNetPro.Offlinefirst.Common.Models;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Models;
+using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Services;
 
-namespace DotNetPro.Offlinefirst.Common.Stores
+namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public class CustomerStore : BaseStore<IEnumerable<Customer>>, ICustomerStore
     {

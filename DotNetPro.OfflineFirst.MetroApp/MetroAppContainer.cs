@@ -1,6 +1,7 @@
 ﻿using System;
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.Offlinefirst.Common.Services;
 using DotNetPro.Offlinefirst.Common.Infrastructure;

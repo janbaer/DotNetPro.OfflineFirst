@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Stores;
 using DotNetPro.Offlinefirst.Common.Infrastructure;

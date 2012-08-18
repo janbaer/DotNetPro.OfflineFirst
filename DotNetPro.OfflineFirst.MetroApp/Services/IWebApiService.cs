@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.Offlinefirst.Common.Models;
 
-namespace DotNetPro.Offlinefirst.Common.Services
+namespace DotNetPro.OfflineFirst.MetroApp.Services
 {
     public interface IWebApiService
     {

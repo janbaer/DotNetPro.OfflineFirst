@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Models;
+using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.Offlinefirst.Common.Services;
 
-namespace DotNetPro.Offlinefirst.Common.Stores
+namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public abstract class BaseStore<T>
     {
