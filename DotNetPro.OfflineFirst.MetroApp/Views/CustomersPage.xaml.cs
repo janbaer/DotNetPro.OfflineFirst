@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
+
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
-using Windows.UI.Xaml.Controls;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Views
 {
@@ -18,6 +19,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
             this.InitializeComponent();
 
             _viewModel = App.Container.Resolve<CustomersViewModel>();
+            this.DataContext = _viewModel;
         }
 
         /// <summary>
@@ -31,6 +33,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            _viewModel.LoadCustomers();
         }
 
         /// <summary>
@@ -41,14 +44,13 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+
         }
 
         private void ShowOrdersClick(object sender, ItemClickEventArgs e)
         {
-            if (_viewModel.ShowOrdersCommand.CanExecute(e.ClickedItem))
-            {
-                _viewModel.ShowOrdersCommand.Execute(e.ClickedItem);
-            }
+            var customerId = ((CustomerViewModel)e.ClickedItem).CustomerId;            
+            this.Frame.Navigate(typeof(OrdersPage), customerId);
         }
     }
 }

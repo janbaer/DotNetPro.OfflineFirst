@@ -1,4 +1,6 @@
-﻿using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+﻿using System;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
+using DotNetPro.OfflineFirst.MetroApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -8,9 +10,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using MetroIoc;
-
-using DotNetPro.Offlinefirst.Common.Infrastructure;
-
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
@@ -65,19 +64,28 @@ namespace DotNetPro.OfflineFirst.MetroApp
 
             Dispatch.MainDispatcher = Window.Current.Dispatcher;
 
-            Container = new MetroAppContainer();
-
-            var navigationService = Container.Resolve<INavigationService>();
-            navigationService.NavigateTo<CustomersViewModel>();
+            App.Container = new MetroAppContainer();
 
             if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
             {
                 // Restore the saved session state only when appropriate
-//                await SuspensionManager.RestoreAsync();
+                await SuspensionManager.RestoreAsync();
+            }
+
+            if (rootFrame.Content == null)
+            {
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                if (!rootFrame.Navigate(typeof(CustomersPage)))
+                {
+                    throw new Exception("Failed to create initial page");
+                }
             }
 
             _networkStatus = App.Container.Resolve<INetworkStatus>();
             _networkStatus.NetworkStatusChanged += (sender, eventArgs) => CheckInternetConnection();
+
             CheckInternetConnection();
         }
 

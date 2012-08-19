@@ -18,6 +18,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
             this.InitializeComponent();
 
             _viewModel = App.Container.Resolve<OrdersViewModel>();
+            this.DataContext = _viewModel;
         }
 
         /// <summary>
@@ -31,7 +32,17 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            // Allow saved page state to override the initial item to display
+            if (pageState != null && pageState.ContainsKey("CustomerId"))
+            {
+                navigationParameter = pageState["CustomerId"];
+            }
 
+            var customerId = navigationParameter as string;
+            if (customerId != null)
+            {
+                _viewModel.LoadOrders(customerId);
+            }        
         }
 
         /// <summary>
@@ -42,7 +53,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Views
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-
+            pageState["CustomerId"] = _viewModel.CustomerId;
         }
     }
 }

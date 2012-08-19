@@ -1,5 +1,4 @@
 ﻿using System;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
 using Windows.Networking.Connectivity;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Infrastructure

@@ -1,25 +1,21 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
-using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Stores;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Common;
-using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 {
-    public class CustomersViewModel : NavigatableViewModel
+    public class CustomersViewModel : BindableBase
     {
         private readonly ICustomerStore _customerStore;
         private readonly Observer<IEnumerable<Customer>> _customerObserver;
         private bool _isLoading;
 
-        public CustomersViewModel(GlobalViewModel globalViewModel,
-                                  ICustomerStore customerStore, INavigationService navigationService) : base(navigationService)
+        public CustomersViewModel(GlobalViewModel globalViewModel, ICustomerStore customerStore)
         {
             this.GlobalViewModel = globalViewModel;
 
@@ -30,11 +26,9 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             this.Customers = new ObservableCollection<CustomerViewModel>();
 
             this.RefreshCommand = new DelegateCommand(Refresh);
-            this.ShowOrdersCommand = new DelegateCommand(ShowOrders);
         }
 
         public DelegateCommand RefreshCommand { get; set; }
-        public DelegateCommand ShowOrdersCommand { get; set; }
 
         public ObservableCollection<CustomerViewModel> Customers { get; private set; }
         public GlobalViewModel GlobalViewModel { get; private set; }
@@ -44,12 +38,12 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             set { SetProperty(ref _isLoading, value); }
         }
 
-        protected override void OnNavigatedTo(object parameter)
+        public void LoadCustomers()
         {
             if (this.Customers.Count == 0)
             {
                 LoadCustomersAsync();
-            }
+            }           
         }
 
         private void OnNextCustomers(IEnumerable<Customer> customers)
@@ -101,10 +95,6 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
            LoadCustomersAsync();
         }
 
-        private void ShowOrders(object parameter)
-        {
-            this.NavigationService.NavigateTo<OrdersViewModel>(((CustomerViewModel)parameter).Customer.CustomerId);
-        }
 
     }
 }

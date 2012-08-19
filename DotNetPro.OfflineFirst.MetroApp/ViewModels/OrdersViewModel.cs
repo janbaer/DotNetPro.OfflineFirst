@@ -3,23 +3,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using DotNetPro.OfflineFirst.MetroApp.Common;
+using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
 using DotNetPro.Offlinefirst.Common.Stores;
-using DotNetPro.Offlinefirst.Common.Infrastructure;
 using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 {
-    public class OrdersViewModel : NavigatableViewModel
+    public class OrdersViewModel : BindableBase
     {
         private readonly IOrderStore _orderStore;
         private readonly Observer<IEnumerable<Order>> _orderStoreObserver;
         private string _customerId;
         private bool _isLoading;
 
-        public OrdersViewModel( GlobalViewModel globalViewModel, IOrderStore orderStore,
-                                INavigationService navigationService) : base(navigationService)
+        public OrdersViewModel( GlobalViewModel globalViewModel, IOrderStore orderStore)
         {
             this.GlobalViewModel = globalViewModel;
             this.Orders = new ObservableCollection<OrderViewModel>();
@@ -29,11 +28,9 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             _orderStore.Subscribe(_orderStoreObserver);
 
             this.RefreshCommand = new DelegateCommand(Refresh);
-            this.ShowOrderDetailsCommand = new DelegateCommand(ShowOrderDetails);
         }
 
         public DelegateCommand RefreshCommand { get; set; }
-        public DelegateCommand ShowOrderDetailsCommand { get; set; }
 
         #region Properties
         public string CustomerId
@@ -50,11 +47,8 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
         public ObservableCollection<OrderViewModel> Orders { get; private set; }
         #endregion
 
-
-        protected override void OnNavigatedTo(object parameter)
+        public void LoadOrders(string customerId)
         {
-            var customerId = parameter as string;
-
             if (string.IsNullOrEmpty(customerId)) return;
 
             if (this.CustomerId != customerId)
@@ -62,7 +56,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
                 this.CustomerId = customerId;
 
                 LoadOrdersAsync(customerId);
-            }
+            }           
         }
 
         private void OnNextOrders(IEnumerable<Order> orders)
@@ -107,9 +101,5 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
             LoadOrdersAsync(this.CustomerId);
         }
 
-        private void ShowOrderDetails(object parameter)
-        {
-
-        }
     }
 }
