@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.OfflineFirst.MetroApp.Services;
-using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
-    public class CustomerStore : BaseStore<IEnumerable<Customer>>, ICustomerStore
+    public class CustomerStore : Store<IEnumerable<Customer>>, ICustomerStore
     {
         private List<Customer> _customers;
 

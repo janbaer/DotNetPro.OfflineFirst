@@ -80,7 +80,9 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
                 var viewModel = (from vm in this.Customers where vm.CustomerId == customerId select vm).FirstOrDefault();
                 if (viewModel == null)
                 {
-                    viewModel = new CustomerViewModel() { Customer = customer };
+                    viewModel = App.Container.Resolve<CustomerViewModel>();
+                    viewModel.Customer = customer;
+
                     this.Customers.Add(viewModel);
                 }
                 else

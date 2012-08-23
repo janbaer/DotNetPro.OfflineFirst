@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DotNetPro.Offlinefirst.Common.Services
+namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public interface IOfflineStore
     {

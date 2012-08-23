@@ -4,11 +4,10 @@ using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Models;
 using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
-    public abstract class BaseStore<T>
+    public abstract class Store<T>
     {
         private static readonly object lockObject = new object();
 
@@ -20,7 +19,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.Stores
         protected INetworkStatus NetworkStatus { get; set; }
         protected List<Type> KnownTypes { get; set; }
 
-        protected BaseStore(IOfflineStore offlineStore, IWebApiService webApiService, INetworkStatus networkStatus)
+        protected Store(IOfflineStore offlineStore, IWebApiService webApiService, INetworkStatus networkStatus)
         {
             this.OfflineStore = offlineStore;
             this.WebApiService = webApiService;

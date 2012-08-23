@@ -4,12 +4,10 @@ using System.Threading.Tasks;
 using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Services;
-using DotNetPro.Offlinefirst.Common.Stores;
 
 namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
-    public class OrderStore : BaseStore<IEnumerable<Order>>, IOrderStore
+    public class OrderStore : Store<IEnumerable<Order>>, IOrderStore
     {
         private List<Order> _orders;
  
