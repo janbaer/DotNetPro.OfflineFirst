@@ -122,7 +122,7 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Stores\BaseStore.cs" />
+    <Compile Include="Stores\Store.cs" />
     <Compile Include="Stores\CustomerStore.cs" />
     <Compile Include="Stores\ICustomerStore.cs" />
     <Compile Include="Stores\IOfflineStore.cs" />

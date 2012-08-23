@@ -40,7 +40,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetPro.OfflineFirst.MetroApp.Services.WebApiService" Collapsed="true">
-    <Position X="5.5" Y="2" Width="1.5" />
+    <Position X="5.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAAACAAICACAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Services\WebApiService.cs</FileName>

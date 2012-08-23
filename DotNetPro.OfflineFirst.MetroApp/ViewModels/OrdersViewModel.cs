@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -5,9 +6,8 @@ using System.Linq;
 using DotNetPro.OfflineFirst.MetroApp.Common;
 using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Services;
+using DotNetPro.OfflineFirst.MetroApp.Stores;
 using DotNetPro.Offlinefirst.Common.Models;
-using DotNetPro.Offlinefirst.Common.Stores;
-using DotNetPro.Offlinefirst.Common.Services;
 
 namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 {
@@ -49,7 +49,10 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
         public void LoadOrders(string customerId)
         {
-            if (string.IsNullOrEmpty(customerId)) return;
+            if (string.IsNullOrEmpty(customerId))
+            {
+                throw new ArgumentException("customerId can not be empty!");
+            }
 
             if (this.CustomerId != customerId)
             {
@@ -61,7 +64,7 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
         private void OnNextOrders(IEnumerable<Order> orders)
         {
-            var query = from o in orders where o.CustomerID == this.CustomerId select o;
+            var query = from order in orders where order.CustomerID == this.CustomerId select order;
 
             Dispatch.Action(() => CreateOrUpdateViewModels(query));
         }
@@ -91,7 +94,8 @@ namespace DotNetPro.OfflineFirst.MetroApp.ViewModels
 
             foreach (var order in orders)
             {
-                var viewModel = new OrderViewModel() { Order = order };
+                var viewModel = App.Container.Resolve<OrderViewModel>();
+                viewModel.Order = order;
                 this.Orders.Add(viewModel);
             }
         }

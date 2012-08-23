@@ -4,10 +4,7 @@ using ControllerRT;
 using DotNetPro.OfflineFirst.MetroApp.Infrastructure;
 using DotNetPro.OfflineFirst.MetroApp.Services;
 using DotNetPro.OfflineFirst.MetroApp.Stores;
-using DotNetPro.Offlinefirst.Common.Services;
 using DotNetPro.OfflineFirst.MetroApp.ViewModels;
-using DotNetPro.Offlinefirst.Common.Stores;
-
 using MetroIoc;
 
 namespace DotNetPro.OfflineFirst.MetroApp
@@ -31,6 +28,9 @@ namespace DotNetPro.OfflineFirst.MetroApp
 
             Register<CustomersViewModel, CustomersViewModel>(null, new SingletonLifecycle());
             Register<OrdersViewModel, OrdersViewModel>(null, new SingletonLifecycle());
+
+            Register<CustomerViewModel>();
+            Register<OrderViewModel>();
         }
 
         public T Resolve<T>()

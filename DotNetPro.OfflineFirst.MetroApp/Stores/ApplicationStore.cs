@@ -1,21 +1,15 @@
 ﻿using System.Threading.Tasks;
 
-using DotNetPro.Offlinefirst.Common.Services;
-using DotNetPro.Offlinefirst.Common.Stores;
-
 namespace DotNetPro.OfflineFirst.MetroApp.Stores
 {
     public class ApplicationStore
     {
-        private readonly IOfflineStore _offlineStore;
         private readonly ICustomerStore _customerStore;
         private readonly IOrderStore _orderStore;
 
-        public ApplicationStore (   IOfflineStore offlineStore, 
-                                    ICustomerStore customerStore, 
+        public ApplicationStore (   ICustomerStore customerStore, 
                                     IOrderStore orderStore)
         {
-            _offlineStore = offlineStore;
             _customerStore = customerStore;
             _orderStore = orderStore;
         }
